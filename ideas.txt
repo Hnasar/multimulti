@@ -15,6 +15,7 @@ Thinks to Consider:
 
 7. Cross-platform accomodations, specifically with dealing with various resolutions and aspect ratios.
   a) How to save artwork? vector or bitmap...does corona support vector?
+  b) We should think about dynamically setting the scale: http://developer.anscamobile.com/reference/index/physicssetscale
 
 #########################
 Non-game App Ideas:
