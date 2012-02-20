@@ -3,8 +3,9 @@ display.setDefault("background", 255, 255, 255)
 
 local physics = require("physics")
 physics.start()
+physics.setGravity(0,0)
 
---MAKING OBJECTS--
+--MAKING BUTTONS--
 
 local function makeButton(x,y,w,h)
   local rect = display.newRect(x,y,w,h)
@@ -13,29 +14,47 @@ local function makeButton(x,y,w,h)
   return rect
 end
 
-
 local w, h = display.contentWidth/3, display.contentWidth/3
-local buttonArr = {}
+local buttonArrB = {}
+local buttonArrT = {}
 
 for i=1, 3 do
-  buttonArr[i] = makeButton(display.contentWidth*(i-1)/3, display.contentHeight-h, w, h)
+  buttonArrB[i] = makeButton(display.contentWidth*(i-1)/3, display.contentHeight-h, w, h)
+  buttonArrT[i] = makeButton(display.contentWidth*(i-1)/3, 0, w, h)
 end
 
+--MAKING SHIP--
+
 local ssB = display.newImage("spaceship.png")
-ssB.x = buttonArr[2].x
-ssB.y = buttonArr[2].y
+physics.addBody(ssB)
+ssB.x = buttonArrB[2].x
+ssB.y = buttonArrB[2].y
+
+local ssT = display.newImage("spaceship.png")
+physics.addBody(ssT)
+ssT:rotate(180)
+ssT.x = buttonArrT[2].x
+ssT.y = buttonArrT[2].y
+
+--MAKING BUTTONS MOVE SHIP--
 
 local listener = function(obj)
   print("Transitioning...")
 end
 
-local function moveShip(event)
+local function moveShipB(event)
   local button = event.target
   transition.to(ssB, {time=200, alpha=1.0, x=button.x, y=button.y, onComplete=listener})
 end
 
+local function moveShipT(event)
+  local button = event.target
+  transition.to(ssT, {time=200, alpha=1.0, x=button.x, y=button.y, onComplete=listener})
+end
+
 for i=1, 3 do
-  buttonArr[i]:addEventListener("tap", moveShip)
+  buttonArrB[i]:addEventListener("tap", moveShipB)
+  buttonArrT[i]:addEventListener("tap", moveShipT)
 end
 
 --[[
@@ -52,10 +71,17 @@ ssB:addEventListener("tap", onTap)
 local timeLastBullet = 0
 local function mainLoop(event)
     if event.time - timeLastBullet >= 300 then
-      local missile = display.newImage("missile.png")
-      missile.x = ssB.x
-      missile.y = ssB.y-ssB.contentHeight/2
-      transition.to(missile, {time = 1000, y = -missile.contentHeight,
+      local missileB = display.newImage("missile.png")
+      missileB.x = ssB.x
+      missileB.y = ssB.y-ssB.contentHeight/2
+      transition.to(missileB, {time = 1000, y = -missileB.contentHeight,
+        onComplete = function(self) self.parent:remove(self); self = nil; end
+      })
+      local missileT = display.newImage("missile.png")
+      missileT:rotate(180)
+      missileT.x = ssT.x
+      missileT.y = ssT.y-ssT.contentHeight/2
+      transition.to(missileT, {time = 1000, y = display.contentHeight+missileT.contentHeight,
         onComplete = function(self) self.parent:remove(self); self = nil; end
       })
       timeLastBullet = event.time
@@ -67,8 +93,4 @@ Runtime:addEventListener("enterFrame", mainLoop)
 
 physics.stop()
 
---local ss2 = display.newImage("spaceship.png");
---ss2:rotate(180)
---ss2.x = display.contentWidth/2
---ss2.y = ss1.contentHeight/2
 
