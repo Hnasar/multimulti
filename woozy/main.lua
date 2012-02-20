@@ -1,3 +1,22 @@
+local physics = require("physics")
+
+function main ()
+  initPhysics()
+  initWalls()
+  --initSnakes()
+  --start()
+end
+
+function initPhysics()
+  physics.start()
+  physics.setDrawMode("hybrid")
+  physics.setGravity(0,0)
+end
+function initWall()
+
+end
+
+--[[
 local speed = 5
 local xdirection, ydirection = 0, speed
 local xpos, ypos = display.contentWidth / 2, display.contentHeight / 8
@@ -59,5 +78,4 @@ local function onSuspendResume (event)
   end
 end
 Runtime:addEventListener("system", onSuspendResume)
-
-
+]]--

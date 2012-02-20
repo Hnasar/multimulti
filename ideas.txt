@@ -1,0 +1,30 @@
+#########################
+Thinks to Consider:
+
+1. Code templates.
+
+2. Making good games.
+
+3. Make a lot of ca$h money -- aka marketing.
+
+4. To support user accounts? So people can level-up their characters or something.
+
+5. Achievements?
+
+6. Cross-game data (in terms of local user progress).
+
+7. Cross-platform accomodations, specifically with dealing with various resolutions and aspect ratios.
+  a) How to save artwork? vector or bitmap...does corona support vector?
+
+#########################
+Non-game App Ideas:
+
+local user progress - A halfway between full-on internet-backed-up user accounts (which are a hassle with inputting passwords when you just want to play a quick game)
+  Each instance of the app could store user accounts. These accounts aren't meant for much but perhaps visual customization and stat tracking. Simple but fun things to have.
+
+#########################
+Game Ideas:
+
+twister - (details?)
+
+leggers - each player controls a leg (literally) of a runner. Locally cooperative instead of competitive. Players can work together to complete the race quickly, OR this could be a networked game with 2 players on one device playing against another two on a different device, over the internet.
