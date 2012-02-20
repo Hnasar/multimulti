@@ -1,9 +1,6 @@
 --[[
 ideas:
 make game speed up every X seconds
-enemy's tiles makes you lose health
-larger area of contiguous tiles makes you lose more
-hitting walls makes you lose health
 ]]
 
 display.setStatusBar(display.HiddenStatusBar)
@@ -14,19 +11,7 @@ function main()
 end
 
 function initBoard()
-  local w = 20
-  local h = 20
-  local i
-  local j
-  local numx = display.contentWidth / w
-  local numy = display.contentHeight / h
-  local square
-  for i=0, numx-1 do
-    for j=0, numy do
-      square = display.newRect(i*w, j*h, w, h)
-      square:setFillColor(math.random(50,255))
-    end
-  end
+
 end
 
 local speed = 2
