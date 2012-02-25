@@ -1,0 +1,9 @@
+-- Basic configuration for how to build Android and iOS platform specific stuff.
+
+
+settings = {
+	orientation = { default = "landscapeRight",
+					supported = {"landscapeRight","landscapeLeft"
+								},
+				  },
+			}
