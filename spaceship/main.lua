@@ -14,7 +14,7 @@ local function makeButton(x,y,w,h)
   rect.alpha = 0.04
   return rect
 end
- 
+
 local w, h = display.contentWidth/3, display.contentWidth/3
 local buttonArrB = {}
 local buttonArrT = {}
@@ -26,34 +26,36 @@ end
 
 --MAKING SHIP--
 
+--local function collisionHandler(event)
+--  display.remove(event.target)
+--end
+
 local ssB = display.newImage("spaceship.png")
 ssB.x = buttonArrB[2].x
 ssB.y = buttonArrB[2].y
+--ssB:addEventHandler("collision", collisionHandler)
 
 local ssT = display.newImage("spaceship.png")
 ssT:rotate(180)
 ssT.x = buttonArrT[2].x
 ssT.y = buttonArrT[2].y
+--ssB:addEventHandler('collision', collisionHandler)
 
 --MAKING BUTTONS MOVE SHIP--
 
-local listener = function(obj)
-  print("Transitioning...")
-end
-
 local function moveShipB(event)
   local button = event.target
-  transition.to(ssB, {time=100, alpha=1.0, x=button.x, y=button.y, onComplete=listener})
+  transition.to(ssB, {time=100, alpha=1.0, x=button.x, y=button.y})
 end
 
 local function moveShipT(event)
   local button = event.target
-  transition.to(ssT, {time=100, alpha=1.0, x=button.x, y=button.y, onComplete=listener})
+  transition.to(ssT, {time=100, alpha=1.0, x=button.x, y=button.y})
 end
 
 for i=1, 3 do
-  buttonArrB[i]:addEventListener("tap", moveShipB)
-  buttonArrT[i]:addEventListener("tap", moveShipT)
+  buttonArrB[i]:addEventListener("touch", moveShipB)
+  buttonArrT[i]:addEventListener("touch", moveShipT)
 end
 
 --MAKE SHOOTING--
