@@ -6,6 +6,7 @@ larger area of contiguous tiles makes you lose more
 hitting walls makes you lose health
 ]]
 
+
 display.setStatusBar(display.HiddenStatusBar)
 require("string")
 
