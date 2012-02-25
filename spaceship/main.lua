@@ -1,5 +1,6 @@
+--INITIALIZATION--
 display.setStatusBar(display.HiddenStatusBar)
-display.setDefault("background", 255, 255, 255)
+display.newImage( "resources/starrybg-white.png", 0, 0 )
 system.activate("multitouch")
 
 local physics = require("physics")
