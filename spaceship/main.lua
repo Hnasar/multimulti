@@ -33,13 +33,11 @@ end
 local ssB = display.newImage("spaceship.png")
 ssB.x = buttonArrB[2].x
 ssB.y = buttonArrB[2].y
---ssB:addEventHandler("collision", collisionHandler)
 
 local ssT = display.newImage("spaceship.png")
 ssT:rotate(180)
 ssT.x = buttonArrT[2].x
 ssT.y = buttonArrT[2].y
---ssB:addEventHandler('collision', collisionHandler)
 
 --MAKING BUTTONS MOVE SHIP--
 
@@ -50,7 +48,7 @@ end
 
 local function moveShipT(event)
   local button = event.target
-  transition.to(ssT, {time=100, alpha=1.0, x=button.x, y=button.y})
+  transition.to(ssT, {time=100, alpha=1.0, x=button.x, y=button.y, onComplete=listener})
 end
 
 for i=1, 3 do
