@@ -14,7 +14,7 @@ local function makeButton(x,y,w,h)
   rect.alpha = 0.04
   return rect
 end
-
+ 
 local w, h = display.contentWidth/3, display.contentWidth/3
 local buttonArrB = {}
 local buttonArrT = {}
