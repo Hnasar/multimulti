@@ -5,15 +5,15 @@ require('physics')
 display.setStatusBar(display.HiddenStatusBar)
 
 -- Globals 
-last_paddle_hit = 1
+last_paddle_hit = 0
 
-p1_score = 0
-p2_score = 0 
+p1_score = 10
+p2_score = 20 
+-- scoreboard text
+player1 = display.newText("Player 1 Score: "..p1_score, 0,20,nil, 32)
+player2 = display.newText("Player 2 Score: "..p2_score, 0,display.contentHeight-40,nil, 32)
 
-
-
-
-
+--[[
 
 -- Grass
 local baseline = 280
@@ -28,21 +28,20 @@ grass2:setReferencePoint( display.CenterLeftReferencePoint )
 grass2.x = 280
 grass2.y = baseline - 20
 
+--]]
+
 function main()
 	setupPhysics()
 	createWalls()
 	createBricks()
-	createBall()
+	createBall(display.contentWidth / 2 , display.contentHeight/0.5)
+	createBall(display.contentWidth / 2 , display.contentHeight/1.5)
 	createPaddle1()
 	createPaddle2()
-	userInterface()
 	startGame()
 end
 
-function userInterface()
-	local player1 = display.newText("Player 1 Score: "..p1_score, 0,20,nil, 32)
-	local player2 = display.newText("Player 2 Score: "..p2_score, 0,display.contentHeight-40,nil, 32)
-end
+
 
 function setupPhysics()
 	physics.start()
@@ -78,6 +77,8 @@ function createPaddle1()
 					end
 				end
 			end
+			
+	last_paddle_hit = 1
 	Runtime:addEventListener("touch",movePaddle1)
 	
 end
@@ -102,13 +103,14 @@ function createPaddle2()
 			end
 		end
 
+	last_paddle_hit = 2
 	Runtime:addEventListener("touch",movePaddle2)	
 end
 
 
 
 
-function createBall()
+function createBall(x,y)
 	local ballRadius = 10
 	
 	ball = display.newCircle( display.contentWidth / 2 , display.contentHeight/1.5 , ballRadius)
@@ -121,13 +123,15 @@ function createBall()
 			if(event.other.type == "destructible") then
 				event.other:removeSelf()
 
-				print(last_paddle_hit)
-				
-				if(event.other.type == "paddle1") then
-					_G["p1_score"] = _G["p1_score"]+1
+				print("last_paddle_hit="..last_paddle_hit)
+				print(event.other.type)
+				if(last_paddle_hit == 1) then
+					p1_score = p1_score +1
+					player1.text="Player 1 Score: "..p1_score
 				end
-				if(event.other.type == "paddle2") then
-					_G["p2_score"] = _G["p2_score"] + 1
+				if(last_paddle_hit == 2) then
+					p2_score = p2_score + 1
+					player2.text="Player 2 Score: "..p2_score
 				end
 			end
 			
@@ -135,12 +139,12 @@ function createBall()
 			if(event.other.type == "bottomWall" or event.other.type == "topWall") then
 				 -- Subtrack appropriate points from each player
 				 if(event.other.type == "topWall") then
-					_G["p1_score"] = _G["p1_score"] - 5
-					print("player 1 score"..p1_score)
+					p1_score = p1_score - 5
+					player1.text="Player 1 Score: "..p1_score
 				 end
 				 if(event.other.type == "bottomWall") then
-					_G["p2_score"] = _G["p2_score"] - 5
-					print("player 2 score"..p2_score)
+					p2_score = p2_score - 5
+					player2.text="Player 2 Score: "..p2_score
 				 end
 				 print(event.other.type)
 				 self:removeSelf()
