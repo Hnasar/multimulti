@@ -1,6 +1,6 @@
 --INITIALIZATION--
 display.setStatusBar(display.HiddenStatusBar)
-display.newImage( "resources/starrybg-white.png", 0, 0 )
+display.newImage( "resources/starrybg.png", 0, 0 )
 system.activate("multitouch")
 
 local physics = require("physics")
@@ -86,26 +86,29 @@ end
 Runtime:addEventListener("enterFrame", shoot)
 
 
-local function collisionHandler(event)
-  print("BOOM!!")
-  display.remove(event.target)
-end
 
 local function makeShips()
   ssB = display.newImage("spaceship.png")
   ssB.x = buttonArrB[2].x
   ssB.y = buttonArrB[2].y
+  ssB.collision = collisionHandler
 
   ssT = display.newImage("spaceship.png")
   ssT:rotate(180)
   ssT.x = buttonArrT[2].x
   ssT.y = buttonArrT[2].y
+  ssT.collision = collisionHandler
 
   physics.addbody(ssB)
   physics.addbody(ssT)
-  ssB:addEventListener("collision", collisionHandler)
-  ssT:addEventListener("collision", collisionHandler)
+  ssB:addEventListener("collision", ssB)
+  ssT:addEventListener("collision", ssT)
 
+end
+
+local function collisionHandler(event)
+  print("BOOM!!")
+  display.remove(event.target)
 end
 
 makeShips()
