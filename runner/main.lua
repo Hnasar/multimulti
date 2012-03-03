@@ -71,9 +71,19 @@ end
 
 hero:prepare("running")
 
+function moveHero(event)
+	if(event.x > hero.x) then
+		hero.x = hero.x +3
+	else
+		hero.x = hero.x -3
+	end
+end
 
 function update(event)
+	
+	moveHero("touch")
 
+	
 	if(right) then
 		hero.x = hero.x +3
 	else
